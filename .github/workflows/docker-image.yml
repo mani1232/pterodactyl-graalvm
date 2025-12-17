@@ -1,6 +1,7 @@
 name: build graalvm
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "master" ]
   pull_request:
@@ -64,4 +65,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta_graalvm.outputs.tags }}
+
           labels: ${{ steps.meta_graalvm.outputs.labels }}
