@@ -42,8 +42,12 @@ java -version
 # replacing the values.
 PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g' | eval echo "$(cat -)")
 
-# Display the command we're running in the output, and then execute it with the env
-# from the container itself.
+# Display the command we're running in the output
 printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0m%s\n" "$PARSED"
+
+# Execute the command.
+# 'exec' replaces the shell process with the Java process.
+# This ensures that signals (like SIGTERM/STOP) are passed directly to the application,
+# allowing for graceful shutdowns.
 # shellcheck disable=SC2086
-eval ${PARSED}
+exec env ${PARSED}
