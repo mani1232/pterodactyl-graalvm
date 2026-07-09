@@ -3,10 +3,10 @@
 # Environment: Java
 # Minimum Panel Version: 1.7.0
 # ----------------------------------
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
 ARG TARGETPLATFORM
-ARG GRAAL_VERSION=25.0.3
+ARG GRAAL_VERSION=25.1.3
 ARG JAVA_VERSION=25
 
 MAINTAINER RikoDEV, <kontakt@riko.dev>
@@ -26,7 +26,7 @@ RUN apt-get update -y \
          "linux/arm64")  ARCH=aarch64  ;; \
          *)              echo "Unsupported architecture: ${TARGETPLATFORM}"; exit 1 ;; \
     esac \
-  && curl --retry 3 -Lfso /tmp/graalvm.tar.gz https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-${GRAAL_VERSION}/graalvm-community-jdk-${GRAAL_VERSION}_linux-${ARCH}_bin.tar.gz \
+  && curl --retry 3 -Lfso /tmp/graalvm.tar.gz https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-${GRAAL_VERSION}/graalvm-community-jdk-25i1-25.0.3_linux-${ARCH}_bin.tar.gz \
   && mkdir -p /opt/java/graalvm \
   && tar -xf /tmp/graalvm.tar.gz -C /opt/java/graalvm --strip-components=1 \
   && rm -rf /var/lib/apt/lists/* /tmp/graalvm.tar.gz
